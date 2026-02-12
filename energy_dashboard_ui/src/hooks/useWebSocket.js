@@ -4,7 +4,10 @@ import { getAuthToken } from "../services/apiClient";
 const DEFAULT_WS_BASE_URL = "ws://localhost:3001";
 
 function getWsBaseUrl() {
-  return process.env.REACT_APP_WS_BASE_URL || DEFAULT_WS_BASE_URL;
+  // Env var compatibility:
+  // - preferred: REACT_APP_WS_BASE_URL (base like ws://host:port)
+  // - compatibility: REACT_APP_WS_URL (some deployments use this name)
+  return process.env.REACT_APP_WS_BASE_URL || process.env.REACT_APP_WS_URL || DEFAULT_WS_BASE_URL;
 }
 
 // PUBLIC_INTERFACE
